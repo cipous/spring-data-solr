@@ -726,6 +726,11 @@ public class SolrTemplate implements SolrOperations, InitializingBean, Applicati
 		registerPersistenceExceptionTranslator();
 	}
 
+	@Override
+	public UpdateResponse optimize(String collection) {
+		return execute(solrClient -> solrClient.optimize(collection));
+	}
+
 	private void registerPersistenceExceptionTranslator() {
 		if (this.applicationContext != null
 				&& this.applicationContext.getBeansOfType(PersistenceExceptionTranslator.class).isEmpty()) {

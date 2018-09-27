@@ -521,6 +521,16 @@ public class SolrTemplateTests {
 		verify(solrClientMock, times(1)).query(any(), any(SolrParams.class), eq(SolrRequest.METHOD.PUT));
 	}
 
+	@Test
+	public void testOptimize() throws IOException, SolrServerException {
+		when(solrClientMock.optimize(eq(COLLECTION_NAME)))
+				.thenReturn(new UpdateResponse());
+		UpdateResponse updateResponse = solrTemplate.optimize(COLLECTION_NAME);
+		assertNotNull(updateResponse);
+		verify(solrClientMock, times(1)).optimize(eq(COLLECTION_NAME));
+	}
+
+
 	static class DocumentWithIndexAnnotations {
 
 		@Id String id;

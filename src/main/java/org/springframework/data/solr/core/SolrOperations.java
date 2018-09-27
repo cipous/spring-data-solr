@@ -15,11 +15,13 @@
  */
 package org.springframework.data.solr.core;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Optional;
 
 import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.SolrPingResponse;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
@@ -510,5 +512,23 @@ public interface SolrOperations {
 	 * @since 2.1
 	 */
 	SchemaOperations getSchemaOperations(String collection);
+
+
+	/**
+	 * Calls SolrClien.optmize, which has following documentation:
+	 *
+	 * Performs an explicit optimize, causing a merge of all segments to one.
+	 *
+	 * waitFlush=true and waitSearcher=true to be inline with the defaults for plain HTTP access
+	 *
+	 * Note: In most cases it is not required to do explicit optimize
+	 *
+	 * @param collection the Solr collection to send the optimize to
+	 *
+	 * @return an {@link org.apache.solr.client.solrj.response.UpdateResponse} containing the response
+	 *         from the server
+	 *
+	 */
+	UpdateResponse optimize(String collection);
 
 }
